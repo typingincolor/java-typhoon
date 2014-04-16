@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
  * Created by andrew on 15/04/2014.
  */
 @Component
-public class AtServiceRoute extends SpringRouteBuilder {
+public class PostAtRequest extends SpringRouteBuilder {
     private Gson gson = new Gson();
 
     @Override
@@ -27,7 +27,6 @@ public class AtServiceRoute extends SpringRouteBuilder {
         from("restlet:http://0.0.0.0:8080/at?restletMethods=POST")
                 .streamCaching()
                 .unmarshal().json(JsonLibrary.Gson, AtRequest.class)
-                .to("log:com.laterooms?level=DEBUG&showStreams=true")
                 .to("jpa://com.laterooms.entity.Task")
                 .process(new Processor() {
                     @Override

@@ -4,28 +4,35 @@ import org.apache.camel.component.jpa.JpaComponent;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.orm.jpa.JpaTransactionManager;
-import org.springframework.orm.jpa.LocalEntityManagerFactoryBean;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.OpenJpaVendorAdapter;
-import org.springframework.transaction.support.TransactionTemplate;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityManager;
 
 @Configuration
+@EnableTransactionManagement
 public class TyphoonConfiguration {
     @Bean
     public JpaComponent jpaComponent() {
         JpaComponent jpaComponent = new JpaComponent();
-        jpaComponent.setEntityManagerFactory(entityManagerFactory());
+        jpaComponent.setEntityManagerFactory(entityManagerFactory().getObject());
         return jpaComponent;
     }
 
     @Bean
-    public EntityManagerFactory entityManagerFactory() {
-        LocalEntityManagerFactoryBean localEntityManagerFactoryBean = new LocalEntityManagerFactoryBean();
-        localEntityManagerFactoryBean.setPersistenceUnitName("camel");
-        localEntityManagerFactoryBean.setJpaVendorAdapter(jpaVendorAdaptor());
-        return localEntityManagerFactoryBean.getNativeEntityManagerFactory();
+    public EntityManager entityManager() {
+        return entityManagerFactory().getObject().createEntityManager();
+    }
+
+    @Bean
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+        LocalContainerEntityManagerFactoryBean lcemfb = new LocalContainerEntityManagerFactoryBean();
+        lcemfb.setPersistenceUnitName("camel");
+        lcemfb.setJpaVendorAdapter(jpaVendorAdaptor());
+        return lcemfb;
     }
 
     @Bean
@@ -35,5 +42,12 @@ public class TyphoonConfiguration {
         openJpaVendorAdapter.setDatabase(Database.HSQL);
 
         return openJpaVendorAdapter;
+    }
+
+    @Bean
+    public PlatformTransactionManager transactionManager() {
+        JpaTransactionManager transactionManager = new JpaTransactionManager();
+        transactionManager.setEntityManagerFactory(entityManagerFactory().getObject());
+        return transactionManager;
     }
 }
