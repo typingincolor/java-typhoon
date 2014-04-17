@@ -9,11 +9,11 @@ public class ScriptDTO {
     private int _id;
     private Map<String, Object> script;
 
-    public ScriptDTO(Map script) {
+    public ScriptDTO(Map<String, Object> script) {
         this.script = script;
     }
 
-    public ScriptDTO(int id, Map script) {
+    public ScriptDTO(int id, Map<String, Object> script) {
         this._id = id;
         this.script = script;
     }
