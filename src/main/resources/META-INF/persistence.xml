@@ -4,6 +4,7 @@
 
     <persistence-unit name="camel" transaction-type="RESOURCE_LOCAL">
         <class>com.laterooms.entity.Task</class>
+        <class>com.laterooms.entity.Script</class>
 
         <properties>
             <property name="openjpa.ConnectionDriverName" value="org.hsqldb.jdbcDriver" />
