@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.JpaMetamodelEntityInformation;
 import org.springframework.data.jpa.repository.support.QueryDslJpaRepository;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
@@ -12,6 +13,7 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 import static com.laterooms.repository.TaskSpecifications.isUnprocessed;
+import static com.laterooms.repository.TaskSpecifications.readyToProcess;
 
 /**
  * Created by andrew on 16/04/2014.
@@ -31,6 +33,22 @@ public class TaskRepositoryImpl implements TaskRepository {
     @Override
     public List<Task> findAllUnprocessed() {
         return taskRepository.findAll(isUnprocessed());
+    }
+
+    @Override
+    public List<Task> findAll() {
+        return taskRepository.findAll();
+    }
+
+    @Override
+    public List<Task> findAllReadyToBeProcessed() {
+        return taskRepository.findAll(readyToProcess());
+    }
+
+    @Override
+    @Transactional
+    public Task save(Task task) {
+        return taskRepository.save(task);
     }
 
     @PostConstruct

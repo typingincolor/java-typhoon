@@ -23,7 +23,7 @@ public class GetAllAtRequest extends SpringRouteBuilder {
                 .process(new Processor() {
                     @Override
                     public void process(Exchange exchange) throws Exception {
-                        exchange.getOut().setBody(taskRepository.findAllUnprocessed());
+                        exchange.getOut().setBody(taskRepository.findAll());
                     }
                 })
                 .marshal().json(JsonLibrary.Gson)

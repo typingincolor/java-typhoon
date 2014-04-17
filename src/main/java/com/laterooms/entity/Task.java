@@ -19,7 +19,10 @@ public class Task implements Serializable {
     private String url;
 
     @Column(name = "status_code")
-    private Integer status_code;
+    private Integer statusCode;
+
+    @Column(name = "result")
+    private String result;
 
     public Integer getId() {
         return id;
@@ -45,11 +48,19 @@ public class Task implements Serializable {
         this.url = url;
     }
 
-    public Integer getStatus_code() {
-        return status_code;
+    public Integer getStatusCode() {
+        return statusCode;
     }
 
-    public void setStatus_code(Integer status_code) {
-        this.status_code = status_code;
+    public void setStatusCode(Integer status_code) {
+        this.statusCode = status_code;
+    }
+
+    public String getResult() {
+        return result;
+    }
+
+    public void setResult(String result) {
+        this.result = result;
     }
 }

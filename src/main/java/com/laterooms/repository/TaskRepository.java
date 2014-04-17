@@ -1,6 +1,7 @@
 package com.laterooms.repository;
 
 import com.laterooms.entity.Task;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
@@ -9,5 +10,8 @@ import java.util.List;
  */
 public interface TaskRepository {
     Task get(Integer id);
+    Task save(Task task);
     List<Task> findAllUnprocessed();
+    List<Task> findAll();
+    List<Task> findAllReadyToBeProcessed();
 }
