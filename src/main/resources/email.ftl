@@ -1,3 +1,3 @@
-<#assign msg = body?eval>
+<#assign msg = headers.freemarker_template_data?eval>
 
-Hello ${msg.forename}
+Hello ${msg.name}

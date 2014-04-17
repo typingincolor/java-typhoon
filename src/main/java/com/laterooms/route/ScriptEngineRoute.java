@@ -31,9 +31,11 @@ public class ScriptEngineRoute extends SpringRouteBuilder {
                     @Override
                     public void process(Exchange exchange) throws Exception {
                         ScriptDTO script = scriptService.get(exchange.getIn().getHeader("id", Integer.class));
-                        exchange.getOut().setBody(script);
+                        exchange.getOut().setHeader("script", script);
                     }
                 })
+                .to("log:com.laterooms?level=DEBUG&showHeaders=true")
+                .setHeader("step", constant('a'))
                 .to("direct:scriptengine")
                 .marshal().json(JsonLibrary.Gson, ScriptDTO.class)
                 .setHeader("Content-Type", constant("application/json"));

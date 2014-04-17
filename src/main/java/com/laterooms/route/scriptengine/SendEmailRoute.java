@@ -11,6 +11,6 @@ public class SendEmailRoute extends SpringRouteBuilder {
     @Override
     public void configure() throws Exception {
         from("direct:send_email")
-                .to("log:com.laterooms?level=DEBUG&showStreams=true");
+                .to("log:com.laterooms?level=DEBUG&showHeaders=true");
     }
 }
