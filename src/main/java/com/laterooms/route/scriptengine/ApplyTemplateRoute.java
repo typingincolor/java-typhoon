@@ -1,6 +1,7 @@
 package com.laterooms.route.scriptengine;
 
 import com.google.gson.Gson;
+import com.jayway.jsonpath.JsonPath;
 import com.laterooms.dto.ScriptDTO;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
@@ -25,21 +26,20 @@ public class ApplyTemplateRoute extends SpringRouteBuilder {
                         char current = exchange.getIn().getHeader("step", Character.class);
                         ScriptDTO script = exchange.getIn().getHeader("script", ScriptDTO.class);
 
-                        Map<String, Object> command = (Map) script.getScript().get(Character.toString(current));
-                        Map<String, Object> data = (Map) command.get("data");
-
-                        String template = (String) data.get("template");
-                        Map<String, Object> templateData = (Map<String, Object>) data.get("template_data");
-
                         Gson gson = new Gson();
+
+                        String command = gson.toJson(script.getScript());
+                        String template = JsonPath.read(command, "$." + current + ".data.template");
+                        Map templateData = JsonPath.read(command, "$." + current + ".data.template_data");
+
                         current++;
 
-                        exchange.getOut().setHeader(FreemarkerConstants.FREEMARKER_RESOURCE_URI, template + ".ftl");
-                        exchange.getOut().setHeader("freemarker_template_data", gson.toJson(templateData));
-                        exchange.getOut().setHeader("step", current);
-
+                        exchange.getIn().setHeader(FreemarkerConstants.FREEMARKER_RESOURCE_URI, template + ".ftl");
+                        exchange.getIn().setHeader("freemarker_template_data", gson.toJson(templateData));
+                        exchange.getIn().setHeader("step", current);
                     }
                 })
-                .to("freemarker:email.ftl");
+                .to("freemarker:email.ftl")
+                .end();
     }
 }

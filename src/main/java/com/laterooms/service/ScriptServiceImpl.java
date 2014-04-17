@@ -25,18 +25,15 @@ public class ScriptServiceImpl implements ScriptService {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
         Script newScript = new Script();
-        newScript.setScript(gson.toJson(script.getScript()));
-
-
+        newScript.setScript(script.getScript().toString());
         Script saved = scriptRepository.save(newScript);
 
-        return new ScriptDTO(saved.getId(), gson.fromJson(saved.getScript(), Map.class));
+        return new ScriptDTO(saved.getId(), saved.getScript());
     }
 
     @Override
     public ScriptDTO get(Integer id) {
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
         Script script = scriptRepository.get(id);
-        return new ScriptDTO(script.getId(), gson.fromJson(script.getScript(), Map.class));
+        return new ScriptDTO(script.getId(), script.getScript());
     }
 }

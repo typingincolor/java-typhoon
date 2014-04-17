@@ -1,28 +1,29 @@
 package com.laterooms.dto;
 
-import java.util.Map;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 
 /**
  * Created by abraithwaite on 17/04/2014.
  */
 public class ScriptDTO {
     private int _id;
-    private Map<String, Object> script;
+    private JsonElement script;
 
-    public ScriptDTO(Map<String, Object> script) {
-        this.script = script;
+    public ScriptDTO(String script) {
+        this.script = new JsonParser().parse(script);
     }
 
-    public ScriptDTO(int id, Map<String, Object> script) {
+    public ScriptDTO(int id, String script) {
         this._id = id;
-        this.script = script;
+        this.script = new JsonParser().parse(script);
     }
 
     public int getId() {
         return _id;
     }
 
-    public Map<String, Object> getScript() {
+    public JsonElement getScript() {
         return script;
     }
 }

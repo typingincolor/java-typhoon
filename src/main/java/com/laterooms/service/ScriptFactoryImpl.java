@@ -1,5 +1,7 @@
 package com.laterooms.service;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.laterooms.dto.ScriptDTO;
 import com.laterooms.json.FactoryRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +32,9 @@ public class ScriptFactoryImpl implements ScriptFactory {
             emailScript.put("a", step1);
             emailScript.put("b", step2);
 
-            ScriptDTO script = new ScriptDTO(emailScript);
+            Gson gson = new Gson();
+            String json = gson.toJson(emailScript);
+            ScriptDTO script = new ScriptDTO(json);
             savedScript = scriptService.create(script);
         }
 
