@@ -17,7 +17,7 @@ public class ScriptEngineImpl implements ScriptEngine {
     Logger logger = LoggerFactory.getLogger("com.laterooms");
 
     @Autowired
-    CommandExecutor commandFactory;
+    CommandExecutor commandExecutor;
 
     @Override
     public ScriptEngineResultDTO run(ScriptDTO script) {
@@ -27,7 +27,7 @@ public class ScriptEngineImpl implements ScriptEngine {
 
             Map<String, Object> command = (Map<String, Object>) script.getScript().get(key);
 
-            Map<String, Object> commandResult = commandFactory.execute((String) command.get("command"), (Map <String, Object>) command.get("data"));
+            Map<String, Object> commandResult = commandExecutor.execute((String) command.get("command"), (Map <String, Object>) command.get("data"));
             result.add(commandResult);
         }
 
