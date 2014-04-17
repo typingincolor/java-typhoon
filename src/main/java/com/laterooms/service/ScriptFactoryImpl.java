@@ -14,11 +14,10 @@ import java.util.TreeMap;
  */
 @Service
 public class ScriptFactoryImpl implements ScriptFactory {
-    @Autowired
-    ScriptService scriptService;
-
     private final static String COMMAND = "command";
     private final static String DATA = "data";
+    @Autowired
+    ScriptService scriptService;
 
     @Override
     public ScriptDTO build(FactoryRequest request) {
@@ -43,10 +42,12 @@ public class ScriptFactoryImpl implements ScriptFactory {
         Map<String, Object> data = new HashMap<String, Object>();
         Map<String, Object> templateData = new HashMap<String, Object>();
 
-        result.put(COMMAND, Commands.apply_template);
-        data.put("template", "email");
         templateData.put("name", name);
+
         data.put("template_data", templateData);
+        data.put("template", "email");
+
+        result.put(COMMAND, Commands.apply_template);
         result.put(DATA, data);
         return result;
     }
@@ -55,9 +56,10 @@ public class ScriptFactoryImpl implements ScriptFactory {
         Map<String, Object> result = new HashMap<String, Object>();
         Map<String, Object> data = new HashMap<String, Object>();
 
-        result.put(COMMAND, Commands.email);
         data.put("to", to);
         data.put("subject", subject);
+
+        result.put(COMMAND, Commands.email);
         result.put(DATA, data);
 
         return result;
