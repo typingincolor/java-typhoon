@@ -21,22 +21,42 @@ public class ScriptFactoryImpl implements ScriptFactory {
         ScriptDTO savedScript = null;
         if ("send_email".equals(request.getAction())) {
             Map<String, Object> emailScript = new HashMap<String, Object>();
-            Map<String, Object> step1 = new HashMap<String, Object>();
-            Map<String, Object> step1Data = new HashMap<String, Object>();
-            Map<String, Object> templateData = new HashMap<String, Object>();
+            Map<String, Object> step1 = buildEmailCommand((String) request.getData().get("name"));
+            Map<String, Object> step2 = buildTemplateCommand((String) request.getData().get("to"), (String) request.getData().get("subject"));
 
-            step1.put("command", "apply_template");
-            step1Data.put("template", "email");
-            templateData.put("name", request.getData().get("name"));
-            step1Data.put("template_data", templateData);
-            step1.put("data", step1Data);
 
-            emailScript.put("one", step1);
+            emailScript.put("1", step1);
+            emailScript.put("2", step2);
 
             ScriptDTO script = new ScriptDTO(emailScript);
             savedScript = scriptService.create(script);
         }
 
         return savedScript;
+    }
+
+    private Map<String, Object> buildEmailCommand(String name) {
+        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> data = new HashMap<String, Object>();
+        Map<String, Object> templateData = new HashMap<String, Object>();
+
+        result.put("command", "apply_template");
+        data.put("template", "email");
+        templateData.put("name", name);
+        data.put("template_data", templateData);
+        result.put("data", data);
+        return result;
+    }
+
+    private Map<String, Object> buildTemplateCommand(String to, String subject) {
+        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> data = new HashMap<String, Object>();
+
+        result.put("command", "email");
+        data.put("to", to);
+        data.put("subject", subject);
+        result.put("data", data);
+
+        return result;
     }
 }
