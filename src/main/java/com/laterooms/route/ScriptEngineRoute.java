@@ -25,16 +25,17 @@ public class ScriptEngineRoute extends SpringRouteBuilder {
     @Override
     public void configure() throws Exception {
         from("restlet:http://0.0.0.0:8080/script/{id}/run?restletMethods=GET")
+                .streamCaching()
                 .startupOrder(3)
                 .process(new Processor() {
                     @Override
                     public void process(Exchange exchange) throws Exception {
                         ScriptDTO script = scriptService.get(exchange.getIn().getHeader("id", Integer.class));
-                        ScriptEngineResultDTO result = scriptEngine.run(script);
-                        exchange.getOut().setBody(result);
+                        exchange.getOut().setBody(script);
                     }
                 })
-                .marshal().json(JsonLibrary.Gson)
+                .to("direct:scriptengine")
+                .marshal().json(JsonLibrary.Gson, ScriptDTO.class)
                 .setHeader("Content-Type", constant("application/json"));
     }
 }
