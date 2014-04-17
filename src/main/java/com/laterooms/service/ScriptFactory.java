@@ -1,5 +1,6 @@
-package com.laterooms.factory;
+package com.laterooms.service;
 
+import com.laterooms.dto.ScriptDTO;
 import com.laterooms.json.FactoryRequest;
 
 /**

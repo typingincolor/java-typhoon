@@ -1,8 +1,7 @@
 package com.laterooms.route;
 
-import com.google.gson.Gson;
-import com.laterooms.factory.ScriptDTO;
-import com.laterooms.factory.ScriptFactory;
+import com.laterooms.dto.ScriptDTO;
+import com.laterooms.service.ScriptFactory;
 import com.laterooms.json.FactoryRequest;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
@@ -10,6 +9,9 @@ import org.apache.camel.model.dataformat.JsonLibrary;
 import org.apache.camel.spring.SpringRouteBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Component
 public class ScriptFactoryRoute extends SpringRouteBuilder {
@@ -20,6 +22,7 @@ public class ScriptFactoryRoute extends SpringRouteBuilder {
     public void configure() throws Exception {
         from("restlet:http://0.0.0.0:8080/script/factory?restletMethods=POST")
                 .streamCaching()
+                .startupOrder(2)
                 .unmarshal().json(JsonLibrary.Gson, FactoryRequest.class)
                 .process(new Processor() {
                     @Override
@@ -32,16 +35,14 @@ public class ScriptFactoryRoute extends SpringRouteBuilder {
                     @Override
                     public void process(Exchange exchange) throws Exception {
                         ScriptDTO script = exchange.getIn().getBody(ScriptDTO.class);
-                        Gson gson = new Gson();
-                        String json = gson.toJson(script.getScript());
 
-                        com.laterooms.entity.Script entity = new com.laterooms.entity.Script();
-                        entity.setScript(json);
-
-                        exchange.getOut().setBody(entity);
+                        Map<String, Object> result = new HashMap<String, Object>();
+                        result.put("url", "http://localhost:8080/script/" + script.getId());
+                        result.put("run", "http://localhost:8080/script/" + script.getId() + "/run");
+                        result.put("id", script.getId());
+                        exchange.getOut().setBody(result);
                     }
                 })
-                .to("jpa://com.laterooms.entity.Script")
                 .marshal().json(JsonLibrary.Gson)
                 .setHeader("Content-Type", constant("application/json"));
     }
