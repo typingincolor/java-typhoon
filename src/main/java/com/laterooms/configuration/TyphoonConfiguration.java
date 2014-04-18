@@ -1,6 +1,5 @@
 package com.laterooms.configuration;
 
-import com.laterooms.router.MyDynamicRouter;
 import org.apache.camel.component.jpa.JpaComponent;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

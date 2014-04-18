@@ -10,13 +10,10 @@ import org.springframework.stereotype.Component;
  * Created by andrew on 17/04/2014.
  */
 @Component
-public class MyDynamicRouter {
-    Logger logger = LoggerFactory.getLogger("com.laterooms");
-
+public class ScriptEngine {
     @Consume(uri = "direct:scriptengine")
     @DynamicRouter
     public String route(@Header(Exchange.SLIP_ENDPOINT) String previous) {
-        logger.debug("Exchange.SLIP_ENDPOINT: " + previous);
         if (previous == null) {
             return "direct:apply_template, direct:send_email";
         }

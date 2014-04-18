@@ -12,8 +12,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
-import static com.laterooms.repository.TaskSpecifications.isUnprocessed;
-import static com.laterooms.repository.TaskSpecifications.readyToProcess;
+import static com.laterooms.repository.TaskPredicates.isUnprocessed;
+import static com.laterooms.repository.TaskPredicates.readyToProcess;
 
 /**
  * Created by andrew on 16/04/2014.

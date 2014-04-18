@@ -47,7 +47,6 @@ public class RunQueuedJobsRoute extends SpringRouteBuilder {
                         exchange.getOut().setBody(taskRepository.save(task));
                     }
                 })
-                .setBody(constant("OK"))
-                .to("log:com.laterooms?level=DEBUG&showStreams=true&showHeaders=true");
+                .setBody(constant("OK"));
     }
 }
