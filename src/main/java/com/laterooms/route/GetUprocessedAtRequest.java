@@ -6,6 +6,7 @@ import org.apache.camel.Processor;
 import org.apache.camel.model.dataformat.JsonLibrary;
 import org.apache.camel.spring.SpringRouteBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -13,9 +14,12 @@ public class GetUprocessedAtRequest extends SpringRouteBuilder {
     @Autowired
     TaskRepository taskRepository;
 
+    @Value("${restlet.port}")
+    private int port;
+
     @Override
     public void configure() throws Exception {
-        from("restlet:http://0.0.0.0:8080/at/unprocessed?restletMethods=GET")
+        from(String.format("restlet:http://0.0.0.0:%d/at/unprocessed?restletMethods=GET", port))
                 .startupOrder(1)
                 .streamCaching()
                 .process(new Processor() {

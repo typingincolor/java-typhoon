@@ -12,6 +12,7 @@ import org.apache.camel.spring.SpringRouteBuilder;
 import org.restlet.Response;
 import org.restlet.data.MediaType;
 import org.restlet.data.Status;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 /**
@@ -21,10 +22,15 @@ import org.springframework.stereotype.Component;
 public class PostAtRequest extends SpringRouteBuilder {
     private Gson gson = new Gson();
 
+    @Value("${restlet.port}")
+    private int port;
+
+    @Value("${hostname}")
+    private String hostname;
+
     @Override
     public void configure() throws Exception {
-        //from("jetty:http://0.0.0.0:8080/at")
-        from("restlet:http://0.0.0.0:8080/at?restletMethods=POST")
+        from(String.format("restlet:http://0.0.0.0:%d/at?restletMethods=POST", port))
                 .streamCaching()
                 .unmarshal().json(JsonLibrary.Gson, AtRequest.class)
                 .to("jpa://com.laterooms.entity.Task")
@@ -35,8 +41,7 @@ public class PostAtRequest extends SpringRouteBuilder {
                         Task task = (Task) exchange.getIn().getBody();
                         response.setStatus(Status.SUCCESS_ACCEPTED);
 
-
-                        AtPostResponse atPostResponse = new AtPostResponse("http://localhost:8080/at/" + task.getId());
+                        AtPostResponse atPostResponse = new AtPostResponse(String.format("http://%s:%d/at/%d", hostname, port, task.getId()));
                         String json = gson.toJson(atPostResponse);
 
                         response.setEntity(json, MediaType.APPLICATION_JSON);

@@ -51,6 +51,12 @@ public class TaskRepositoryImpl implements TaskRepository {
         return taskRepository.save(task);
     }
 
+    @Override
+    @Transactional
+    public void delete(Task task) {
+        taskRepository.delete(task);
+    }
+
     @PostConstruct
     public void init() {
         JpaEntityInformation<Task, Integer> taskEntityInfo = new JpaMetamodelEntityInformation<Task, Integer>(Task.class, entityManager.getMetamodel());

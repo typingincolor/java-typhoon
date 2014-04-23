@@ -1,38 +1,39 @@
 package com.laterooms.route;
 
-import com.laterooms.dto.ScriptDTO;
-import com.laterooms.service.ScriptServiceImpl;
+import com.laterooms.entity.Task;
+import com.laterooms.repository.TaskRepository;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
+import org.apache.camel.component.restlet.RestletConstants;
 import org.apache.camel.model.dataformat.JsonLibrary;
 import org.apache.camel.spring.SpringRouteBuilder;
+import org.restlet.Response;
+import org.restlet.data.Status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-/**
- * Created by abraithwaite on 17/04/2014.
- */
 @Component
-public class GetScriptRoute extends SpringRouteBuilder {
+public class DeleteAtRequest extends SpringRouteBuilder {
     @Autowired
-    ScriptServiceImpl scriptService;
+    TaskRepository taskRepository;
 
     @Value("${restlet.port}")
     private int port;
 
     @Override
     public void configure() throws Exception {
-        from(String.format("restlet:http://0.0.0.0:%d/script/{id}?restletMethods=GET", port))
+        from(String.format("restlet:http://0.0.0.0:%d/at/{id}?restletMethods=DELETE", port))
                 .streamCaching()
                 .process(new Processor() {
                     @Override
                     public void process(Exchange exchange) throws Exception {
-                        ScriptDTO script = scriptService.get(exchange.getIn().getHeader("id", Integer.class));
-                        exchange.getOut().setBody(script);
+                        Task task = taskRepository.get(exchange.getIn().getHeader("id", Integer.class));
+                        taskRepository.delete(task);
+                        exchange.getOut().setBody("OK");
                     }
                 })
                 .marshal().json(JsonLibrary.Gson)
-                .setHeader("Content-Type", constant("application/json"));
+                .setHeader("Content-Type", constant("text/plain"));
     }
 }

@@ -17,7 +17,7 @@ public class Typhoon {
         main = new Main();
 
         main.enableHangupSupport();
-        main.setApplicationContextUri("META-INF/spring/camel-context.xml");
+        main.setApplicationContextUri("src/main/webapp/WEB-INF/applicationContext.xml");
 
         System.out.println("Unleashing the typhoon. Use ctrl + c to end the storm.\n");
         main.run();
