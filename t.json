@@ -1,0 +1,1 @@
+{"_id":201,"script":{"a":{"data":{"template":"email","template_data":{"name":"Andrew"}},"command":"apply_template"},"b":{"data":{"to":"abraithw@gmail.com","subject":"this is a test..."},"command":"email"}}}

@@ -51,23 +51,23 @@ direct://send_email
 
 ```json
 {
-  id: 201,
-  script: {
-    a: {
-      data: {
-        template: "email",
-        template_data: {  
-          name: "Andrew"
+  "_id": 201,
+  "script": {
+    "a": {
+      "data": {
+        "template": "email",
+        "template_data": {
+          "name": "Andrew"
         }
       },
-      command: "apply_template"
+      "command": "apply_template"
     },
-    b: {
-      data: {
-        to: "abraithw@gmail.com",
-        subject: "this is a test..."
+    "b": {
+      "data": {
+        "to": "abraithw@gmail.com",
+        "subject": "this is a test..."
       },
-      command: "email"
+      "command": "email"
     }
   }
 }
