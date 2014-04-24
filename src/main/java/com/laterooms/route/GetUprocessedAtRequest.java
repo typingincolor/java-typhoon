@@ -29,6 +29,7 @@ public class GetUprocessedAtRequest extends SpringRouteBuilder {
                     }
                 })
                 .marshal().json(JsonLibrary.Gson)
+                .setHeader("Access-Control-Allow-Origin", constant("*"))
                 .setHeader("Content-Type", constant("application/json"));
     }
 }

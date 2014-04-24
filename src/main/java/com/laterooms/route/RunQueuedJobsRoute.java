@@ -20,7 +20,7 @@ public class RunQueuedJobsRoute extends SpringRouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        from("timer://atq?fixedRate=ture&period=30s")
+        from("timer://atq?fixedRate=ture&period=120s")
                 .streamCaching()
                 .process(new Processor() {
                     @Override
