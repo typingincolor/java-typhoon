@@ -72,3 +72,7 @@ direct://send_email
   }
 }
 ```
+
+### Monitoring App
+
+Go to `http://localhost:8080`
