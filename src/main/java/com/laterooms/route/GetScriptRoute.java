@@ -4,6 +4,7 @@ import com.laterooms.dto.ScriptDTO;
 import com.laterooms.service.ScriptServiceImpl;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
+import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.dataformat.JsonLibrary;
 import org.apache.camel.spring.SpringRouteBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
