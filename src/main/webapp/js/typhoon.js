@@ -16,8 +16,22 @@ function TyphoonCtrl($scope, $http) {
       );
   };
 
+  $scope.delete = function(id) {
+    $http.delete('http://localhost:8081/at/' + id)
+      .success(
+        function(data, status, headers, config) {
+          $scope.getUnprocessedTasks();
+        }
+      )
+      .error(
+        function(data, status, headers, config) {
+          console.error("data", data);
+          console.error("status", status);
+        }
+      );
+  };
+
   $scope.init = function() {
-    console.info("init");
     $scope.getUnprocessedTasks();
   };
 }
