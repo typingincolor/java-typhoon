@@ -26,7 +26,7 @@ public class TyphoonWeb extends WebMvcConfigurerAdapter {
     public ViewResolver viewResolver() {
         HandlebarsViewResolver handlebarsViewResolver = new HandlebarsViewResolver();
         handlebarsViewResolver.setPrefix("/templates/");
-        handlebarsViewResolver.setSuffix(".html");
+        handlebarsViewResolver.setSuffix(".hbs");
         handlebarsViewResolver.setCache(false);
         handlebarsViewResolver.setContentType("text/html;charset=utf-8");
         return handlebarsViewResolver;
