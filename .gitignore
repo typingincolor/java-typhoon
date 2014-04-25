@@ -3,3 +3,6 @@ target
 *.iml
 db
 /tools/received-emails
+.classpath
+.project
+.settings
