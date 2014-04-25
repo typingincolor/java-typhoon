@@ -18,7 +18,7 @@ restlet:http://0.0.0.0:8081/at/(id)?restletMethods=DELETE
 restlet:http://0.0.0.0:8081/at/(id)?restletMethods=GET
 restlet:http://0.0.0.0:8081/script/(id)?restletMethods=GET
 restlet:http://0.0.0.0:8081/at?restletMethods=POST
-timer://atq?fixedRate=ture&period=30s
+timer://atq?fixedRate=true&period=30s
 direct://apply_template
 direct://send_email
 ```
