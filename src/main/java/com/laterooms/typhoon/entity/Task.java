@@ -7,7 +7,9 @@ import java.util.Date;
 @Entity
 @Table(name = "TASK")
 public class Task implements Serializable {
-    @Id
+	private static final long serialVersionUID = -7161650080622044832L;
+
+	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "_id")
     private Integer id;

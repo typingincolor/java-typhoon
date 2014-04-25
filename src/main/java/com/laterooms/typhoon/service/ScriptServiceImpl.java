@@ -1,7 +1,5 @@
 package com.laterooms.typhoon.service;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.laterooms.typhoon.dto.ScriptDTO;
 import com.laterooms.typhoon.entity.Script;
 import com.laterooms.typhoon.repository.ScriptRepository;
@@ -20,8 +18,6 @@ public class ScriptServiceImpl implements ScriptService {
 
     @Override
     public ScriptDTO create(ScriptDTO script) {
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-
         Script newScript = new Script();
         newScript.setScript(script.getScript().toString());
         Script saved = scriptRepository.save(newScript);

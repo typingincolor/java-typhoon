@@ -56,6 +56,11 @@ public class TaskRepositoryImpl implements TaskRepository {
     public void delete(Task task) {
         taskRepository.delete(task);
     }
+    
+    @Override
+    public long countUnprocessed() {
+    	return taskRepository.count(isUnprocessed());
+    }
 
     @PostConstruct
     public void init() {

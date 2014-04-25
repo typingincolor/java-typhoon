@@ -14,4 +14,5 @@ public interface TaskRepository {
     List<Task> findAll();
     List<Task> findAllReadyToBeProcessed();
     void delete(Task task);
+	long countUnprocessed();
 }

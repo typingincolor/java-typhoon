@@ -2,9 +2,10 @@ package com.laterooms.typhoonweb.controller;
 
 import com.laterooms.typhoon.entity.Task;
 import com.laterooms.typhoon.repository.TaskRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,13 +20,13 @@ public class TyphoonController {
     @Autowired
     TaskRepository taskRepository;
 
-    @ModelAttribute("allUnprocessedTasks")
-    public List<Task> populateUnprocessedTasks() {
-        return this.taskRepository.findAllUnprocessed();
-    }
-
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String index() {
+    public String index(Model model) {
+    	List<Task> unprocessedTasks = taskRepository.findAllUnprocessed();
+    	
+    	model.addAttribute("allUnprocessedTasks", unprocessedTasks);
+    	model.addAttribute("numberOfTasks", unprocessedTasks.size());
+    	
         return "index";
     }
 
