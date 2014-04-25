@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.4.2/pure-min.css" />
+<link rel="stylesheet" href="/css/typhoon.css" />
+<body>
+<section id="container">
+    <h1>Java-Typhoon</h1>
+
+    <div>
+        <div>
+            <p>There are <span th:text="${#lists.size(allUnprocessedTasks)}">1</span> tasks to process</p>
+        </div>
+
+        <div>
+            <table class="pure-table pure-table-horizontal">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>id</th>
+                    <th>at</th>
+                    <th>url</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr th:each="task : ${allUnprocessedTasks}">
+                    <td><a th:href="@{'/delete/' + ${task.id}}">delete</a></td>
+                    <td th:text="${task.id}"></td>
+                    <td th:text="${task.at}"></td>
+                    <td th:text="${task.url}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+</body>
+</html>

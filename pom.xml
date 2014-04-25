@@ -30,6 +30,8 @@
         <camel.version>2.13.0</camel.version>
         <openjpa.version>2.3.0</openjpa.version>
         <querydsl.version>3.3.2</querydsl.version>
+        <spring.version>4.0.3.RELEASE</spring.version>
+        <thymeleaf.version>2.1.2.RELEASE</thymeleaf.version>
     </properties>
 
     <name>A Camel Route</name>
@@ -121,11 +123,6 @@
         </dependency>
 
         <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-jpa</artifactId>
-            <version>1.5.2.RELEASE</version>
-        </dependency>
-        <dependency>
             <groupId>com.mysema.querydsl</groupId>
             <artifactId>querydsl-core</artifactId>
             <version>${querydsl.version}</version>
@@ -156,6 +153,23 @@
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
             <version>1.2.16</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.thymeleaf</groupId>
+            <artifactId>thymeleaf</artifactId>
+            <version>${thymeleaf.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.thymeleaf</groupId>
+            <artifactId>thymeleaf-spring4</artifactId>
+            <version>${thymeleaf.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${spring.version}</version>
         </dependency>
     </dependencies>
 
