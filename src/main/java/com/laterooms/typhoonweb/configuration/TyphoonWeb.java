@@ -1,13 +1,12 @@
 package com.laterooms.typhoonweb.configuration;
 
+import com.github.jknack.handlebars.springmvc.HandlebarsViewResolver;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import org.springframework.web.servlet.view.mustache.MustacheTemplateLoader;
-import org.springframework.web.servlet.view.mustache.MustacheViewResolver;
 
 /**
  * Created by abraithwaite on 25/04/2014.
@@ -24,19 +23,12 @@ public class TyphoonWeb extends WebMvcConfigurerAdapter {
     }
 
     @Bean
-    public MustacheTemplateLoader templateLoader() {
-        MustacheTemplateLoader templateLoader = new MustacheTemplateLoader();
-        return templateLoader;
-    }
-
-    @Bean
     public ViewResolver viewResolver() {
-        MustacheViewResolver mustacheViewResolver = new MustacheViewResolver();
-        mustacheViewResolver.setTemplateLoader(templateLoader());
-        mustacheViewResolver.setPrefix("/templates/");
-        mustacheViewResolver.setSuffix(".html");
-        mustacheViewResolver.setCache(false);
-        mustacheViewResolver.setContentType("text/html;charset=utf-8");
-        return mustacheViewResolver;
+        HandlebarsViewResolver handlebarsViewResolver = new HandlebarsViewResolver();
+        handlebarsViewResolver.setPrefix("/templates/");
+        handlebarsViewResolver.setSuffix(".html");
+        handlebarsViewResolver.setCache(false);
+        handlebarsViewResolver.setContentType("text/html;charset=utf-8");
+        return handlebarsViewResolver;
     }
 }
