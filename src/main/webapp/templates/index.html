@@ -8,7 +8,7 @@
 
     <div>
         <div>
-            <p>There are <span th:text="${#lists.size(allUnprocessedTasks)}">1</span> tasks to process</p>
+            <p>There are {{allUnprocessedTasks.size}} tasks to process</p>
         </div>
 
         <div>
@@ -23,12 +23,14 @@
                 </thead>
 
                 <tbody>
-                <tr th:each="task : ${allUnprocessedTasks}">
-                    <td><a th:href="@{'/delete/' + ${task.id}}">delete</a></td>
-                    <td th:text="${task.id}"></td>
-                    <td th:text="${task.at}"></td>
-                    <td th:text="${task.url}"></td>
+                {{#allUnprocessedTasks}}
+                <tr>
+                    <td><a href="/delete/{{id}}">delete</a></td>
+                    <td>{{id}}</td>
+                    <td>{{at}}</td>
+                    <td>{{url}}</td>
                 </tr>
+                {{/allUnprocessedTasks}}
                 </tbody>
             </table>
         </div>

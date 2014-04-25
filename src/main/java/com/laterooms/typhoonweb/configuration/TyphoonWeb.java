@@ -2,12 +2,12 @@ package com.laterooms.typhoonweb.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import org.thymeleaf.spring3.SpringTemplateEngine;
-import org.thymeleaf.spring3.view.ThymeleafViewResolver;
-import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
+import org.springframework.web.servlet.view.mustache.MustacheTemplateLoader;
+import org.springframework.web.servlet.view.mustache.MustacheViewResolver;
 
 /**
  * Created by abraithwaite on 25/04/2014.
@@ -24,27 +24,19 @@ public class TyphoonWeb extends WebMvcConfigurerAdapter {
     }
 
     @Bean
-    public ServletContextTemplateResolver templateResolver() {
-        ServletContextTemplateResolver templateResolver = new ServletContextTemplateResolver();
-
-        templateResolver.setPrefix("/templates/");
-        templateResolver.setSuffix(".html");
-        templateResolver.setTemplateMode("HTML5");
-
-        return templateResolver;
+    public MustacheTemplateLoader templateLoader() {
+        MustacheTemplateLoader templateLoader = new MustacheTemplateLoader();
+        return templateLoader;
     }
 
     @Bean
-    public SpringTemplateEngine templateEngine() {
-        SpringTemplateEngine templateEngine = new SpringTemplateEngine();
-        templateEngine.setTemplateResolver(templateResolver());
-        return templateEngine;
-    }
-
-    @Bean
-    public ThymeleafViewResolver viewResolver() {
-        ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
-        viewResolver.setTemplateEngine(templateEngine());
-        return viewResolver;
+    public ViewResolver viewResolver() {
+        MustacheViewResolver mustacheViewResolver = new MustacheViewResolver();
+        mustacheViewResolver.setTemplateLoader(templateLoader());
+        mustacheViewResolver.setPrefix("/templates/");
+        mustacheViewResolver.setSuffix(".html");
+        mustacheViewResolver.setCache(false);
+        mustacheViewResolver.setContentType("text/html;charset=utf-8");
+        return mustacheViewResolver;
     }
 }
