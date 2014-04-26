@@ -8,8 +8,12 @@ version = '1.0-SNAPSHOT'
 
 description = "java-typhoon"
 
-sourceCompatibility = 1.6
-targetCompatibility = 1.6
+project.ext {
+    camelVersion = '2.13.0'
+    openJpaVersion = '2.3.0'
+    querydslVersion = '3.3.2'
+    springVersion = '3.2.8.RELEASE'
+}
 
 repositories {
      maven { url "http://repo.maven.apache.org/maven2" }
@@ -29,30 +33,38 @@ configurations {
 }
 
 dependencies {
-    compile group: 'org.apache.camel', name: 'camel-core', version:'2.13.0'
-    compile group: 'org.apache.camel', name: 'camel-spring', version:'2.13.0'
-    compile group: 'org.apache.camel', name: 'camel-jetty', version:'2.13.0'
-    compile group: 'org.apache.camel', name: 'camel-rabbitmq', version:'2.13.0'
-    compile group: 'org.apache.camel', name: 'camel-freemarker', version:'2.13.0'
-    compile group: 'org.apache.camel', name: 'camel-mail', version:'2.13.0'
-    compile group: 'org.apache.camel', name: 'camel-jsonpath', version:'2.13.0'
-    compile group: 'org.apache.camel', name: 'camel-gson', version:'2.13.0'
-    compile group: 'org.apache.camel', name: 'camel-jpa', version:'2.13.0'
-    compile group: 'org.apache.camel', name: 'camel-restlet', version:'2.13.0'
-    compile group: 'org.apache.openjpa', name: 'openjpa-persistence-jdbc', version:'2.3.0'
-    compile group: 'org.apache.openjpa', name: 'openjpa-kernel', version:'2.3.0'
+    compile group: 'org.apache.camel', name: 'camel-core', version: project.camelVersion
+    compile group: 'org.apache.camel', name: 'camel-spring', version: project.camelVersion
+    compile group: 'org.apache.camel', name: 'camel-jetty', version: project.camelVersion
+    compile group: 'org.apache.camel', name: 'camel-rabbitmq', version: project.camelVersion
+    compile group: 'org.apache.camel', name: 'camel-freemarker', version: project.camelVersion
+    compile group: 'org.apache.camel', name: 'camel-mail', version: project.camelVersion
+    compile group: 'org.apache.camel', name: 'camel-jsonpath', version: project.camelVersion
+    compile group: 'org.apache.camel', name: 'camel-gson', version: project.camelVersion
+    compile group: 'org.apache.camel', name: 'camel-jpa', version: project.camelVersion
+    compile group: 'org.apache.camel', name: 'camel-restlet', version: project.camelVersion
+
+    compile group: 'org.apache.openjpa', name: 'openjpa-persistence-jdbc', version: project.openJpaVersion
+    compile group: 'org.apache.openjpa', name: 'openjpa-kernel', version: project.openJpaVersion
+
     compile group: 'hsqldb', name: 'hsqldb', version:'1.8.0.7'
+
     compile group: 'com.google.code.gson', name: 'gson', version:'2.2.4'
-    compile group: 'org.springframework.data', name: 'spring-data-jpa', version:'1.5.2.RELEASE'
-    compile group: 'com.mysema.querydsl', name: 'querydsl-core', version:'3.3.2'
-    compile group: 'com.mysema.querydsl', name: 'querydsl-apt', version:'3.3.2'
-    compile group: 'com.mysema.querydsl', name: 'querydsl-jpa', version:'3.3.2'
+
+    compile group: 'com.mysema.querydsl', name: 'querydsl-core', version: project.querydslVersion
+    compile group: 'com.mysema.querydsl', name: 'querydsl-apt', version: project.querydslVersion
+    compile group: 'com.mysema.querydsl', name: 'querydsl-jpa', version: project.querydslVersion
+
     compile group: 'org.slf4j', name: 'slf4j-api', version:'1.6.1'
     compile group: 'org.slf4j', name: 'slf4j-log4j12', version:'1.6.1'
     compile group: 'log4j', name: 'log4j', version:'1.2.16'
+
     compile group: 'com.github.jknack', name: 'handlebars-springmvc', version:'1.3.0'
-    compile group: 'org.springframework', name: 'spring-webmvc', version:'3.2.8.RELEASE'
-    compile group: 'org.springframework', name: 'spring-web', version:'3.2.8.RELEASE'
+
+    compile group: 'org.springframework', name: 'spring-webmvc', version: project.springVersion
+    compile group: 'org.springframework', name: 'spring-web', version: project.springVersion
+
+    compile group: 'org.springframework.data', name: 'spring-data-jpa', version:'1.5.2.RELEASE'
 }
 
 task generateQueryDSL(type: JavaCompile, group: 'build', description: 'Generates the QueryDSL query types') {
