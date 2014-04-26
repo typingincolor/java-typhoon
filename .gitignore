@@ -6,3 +6,5 @@ db
 .classpath
 .project
 .settings
+build
+src/main/generated
