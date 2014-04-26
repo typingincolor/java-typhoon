@@ -1,40 +1,56 @@
 <!doctype html>
 <html>
-<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.4.2/pure-min.css" />
-<link rel="stylesheet" href="./css/typhoon.css" />
+<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.4.2/pure-min.css"/>
+<link rel="stylesheet" href="./css/typhoon.css"/>
 <body>
 <section id="container">
     <h1>Java-Typhoon</h1>
 
-    <div>
-        <div>
-            <p>There are {{numberOfTasks}} tasks to process</p>
-        </div>
+    <h2>There are {{numberOfTasks}} tasks to process</h2>
 
-        <div>
-            <table class="pure-table pure-table-horizontal">
-                <thead>
-                <tr>
-                    <th></th>
-                    <th>id</th>
-                    <th>at</th>
-                    <th>url</th>
-                </tr>
-                </thead>
+    <h2>Camel Status</h2>
 
-                <tbody>
-                {{#allUnprocessedTasks}}
-                <tr>
-                    <td><a href="./delete/{{id}}">delete</a></td>
-                    <td>{{id}}</td>
-                    <td>{{at}}</td>
-                    <td>{{url}}</td>
-                </tr>
-                {{/allUnprocessedTasks}}
-                </tbody>
-            </table>
-        </div>
-    </div>
+    <table class="pure-table pure-table-horizontal">
+        <thead>
+        <tr>
+            <th>route</th>
+            <th>endpoint uri</th>
+            <th>state</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#routeStates}}
+            <tr>
+                <td>{{routeId}}</td>
+                <td>{{endpointUri}}</td>
+                <td>{{state}}</td>
+            </tr>
+        {{/routeStates}}
+        </tbody>
+    </table>
+
+    <h2>Tasks to be processed</h2>
+    <table class="pure-table pure-table-horizontal">
+        <thead>
+        <tr>
+            <th></th>
+            <th>id</th>
+            <th>at</th>
+            <th>url</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        {{#allUnprocessedTasks}}
+            <tr>
+                <td><a href="./delete/{{id}}">delete</a></td>
+                <td>{{id}}</td>
+                <td>{{at}}</td>
+                <td>{{url}}</td>
+            </tr>
+        {{/allUnprocessedTasks}}
+        </tbody>
+    </table>
 </section>
 </body>
 </html>
