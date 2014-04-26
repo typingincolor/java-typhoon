@@ -1,0 +1,18 @@
+<table class="table">
+    <thead>
+    <tr>
+        <th>route</th>
+        <th>endpoint uri</th>
+        <th>state</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#routeStates}}
+        <tr>
+            <td>{{routeId}}</td>
+            <td>{{endpointUri}}</td>
+            <td>{{state}}</td>
+        </tr>
+    {{/routeStates}}
+    </tbody>
+</table>

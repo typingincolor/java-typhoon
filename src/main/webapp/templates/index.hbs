@@ -1,56 +1,33 @@
 <!doctype html>
 <html>
-<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.4.2/pure-min.css"/>
-<link rel="stylesheet" href="./css/typhoon.css"/>
+{{> partials/head }}
 <body>
-<section id="container">
-    <h1>Java-Typhoon</h1>
+<div class="container">
+    {{> partials/navbar }}
 
-    <h2>There are {{numberOfTasks}} tasks to process</h2>
+    <ul id="monitor" class="nav nav-tabs">
+        <li class="active">
+            <a href="#tasks" data-toggle="tab">Tasks</a>
+        </li>
+        <li>
+            <a href="#camel" data-toggle="tab">Camel</a>
+        </li>
+    </ul>
 
-    <h2>Camel Status</h2>
-
-    <table class="pure-table pure-table-horizontal">
-        <thead>
-        <tr>
-            <th>route</th>
-            <th>endpoint uri</th>
-            <th>state</th>
-        </tr>
-        </thead>
-        <tbody>
-        {{#routeStates}}
-            <tr>
-                <td>{{routeId}}</td>
-                <td>{{endpointUri}}</td>
-                <td>{{state}}</td>
-            </tr>
-        {{/routeStates}}
-        </tbody>
-    </table>
-
-    <h2>Tasks to be processed</h2>
-    <table class="pure-table pure-table-horizontal">
-        <thead>
-        <tr>
-            <th></th>
-            <th>id</th>
-            <th>at</th>
-            <th>url</th>
-        </tr>
-        </thead>
-
-        <tbody>
-        {{#allUnprocessedTasks}}
-            <tr>
-                <td><a href="./delete/{{id}}">delete</a></td>
-                <td>{{id}}</td>
-                <td>{{at}}</td>
-                <td>{{url}}</td>
-            </tr>
-        {{/allUnprocessedTasks}}
-        </tbody>
-    </table>
-</section>
+    <div id="monitorContent" class="tab-content">
+        <div class="tab-pane active" id="tasks">
+            {{> partials/tasks }}
+        </div>
+        <div class="tab-pane" id="camel">
+            {{> partials/camel }}
+        </div>
+    </div>
+</div>
 </body>
+<script>
+$('#monitor a').click(function (e) {
+  e.preventDefault()
+  $(this).tab('show')
+})
+</script>
 </html>

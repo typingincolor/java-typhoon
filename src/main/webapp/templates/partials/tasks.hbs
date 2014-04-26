@@ -1,0 +1,23 @@
+<h5>There are {{numberOfTasks}} tasks to process</h5>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th></th>
+        <th>id</th>
+        <th>at</th>
+        <th>url</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    {{#allUnprocessedTasks}}
+        <tr>
+            <td><a href="./delete/{{id}}"><span class="glyphicon glyphicon-trash"></span></a></td>
+            <td>{{id}}</td>
+            <td>{{at}}</td>
+            <td>{{url}}</td>
+        </tr>
+    {{/allUnprocessedTasks}}
+    </tbody>
+</table>
