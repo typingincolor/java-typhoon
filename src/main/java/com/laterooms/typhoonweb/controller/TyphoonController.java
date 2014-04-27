@@ -28,15 +28,30 @@ public class TyphoonController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(Model model) {
         List<Task> unprocessedTasks = taskRepository.findAllUnprocessed();
-        JSONObject states = jmxService.getRouteStates();
-        JSONObject contextStats = jmxService.getContextStats();
 
-        model.addAttribute("routeStates", states);
-        model.addAttribute("context", contextStats);
         model.addAttribute("allUnprocessedTasks", unprocessedTasks);
         model.addAttribute("numberOfTasks", unprocessedTasks.size());
+        model.addAttribute("nav-root", "active");
 
         return "index";
+    }
+
+    @RequestMapping(value = "/routes", method = RequestMethod.GET)
+    public String routes(Model model) {
+        JSONObject states = jmxService.getRouteStates();
+        model.addAttribute("routes", states);
+        model.addAttribute("nav-routes", "active");
+
+        return "routes";
+    }
+
+    @RequestMapping(value = "/context", method = RequestMethod.GET)
+    public String context(Model model) {
+        JSONObject contextStats = jmxService.getContextStats();
+        model.addAttribute("context", contextStats);
+        model.addAttribute("nav-context", "active");
+
+        return "context";
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)

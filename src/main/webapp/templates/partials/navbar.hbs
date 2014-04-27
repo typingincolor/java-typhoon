@@ -1,13 +1,22 @@
 <nav class="navbar navbar-default" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target="#navbar-collapse">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">typhoon</a>
+            <span class="navbar-brand">typhoon</span>
+        </div>
+
+        <div class="collapse navbar-collapse" id="navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="{{ nav-root }}"><a href="./">Tasks</a></li>
+                <li class="{{ nav-routes }}"><a href="./routes">Routes</a></li>
+                <li class="{{ nav-context }}"><a href="./context">Context</a></li>
+            </ul>
         </div>
     </div>
 </nav>
