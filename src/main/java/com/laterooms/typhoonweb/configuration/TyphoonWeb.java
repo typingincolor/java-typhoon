@@ -1,6 +1,7 @@
 package com.laterooms.typhoonweb.configuration;
 
 import com.github.jknack.handlebars.springmvc.HandlebarsViewResolver;
+import org.jolokia.client.J4pClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jmx.access.MBeanProxyFactoryBean;
@@ -36,5 +37,10 @@ public class TyphoonWeb extends WebMvcConfigurerAdapter {
         handlebarsViewResolver.setCache(false);
         handlebarsViewResolver.setContentType("text/html;charset=utf-8");
         return handlebarsViewResolver;
+    }
+
+    @Bean
+    public J4pClient jokoliaClient() {
+        return new J4pClient("http://localhost:8080/typhoon/jolokia");
     }
 }

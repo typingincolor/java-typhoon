@@ -4,6 +4,7 @@ import com.laterooms.typhoon.entity.Task;
 import com.laterooms.typhoon.repository.TaskRepository;
 import com.laterooms.typhoonweb.DTO.RouteStateDTO;
 import com.laterooms.typhoonweb.service.JMXService;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,9 +28,11 @@ public class TyphoonController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(Model model) {
         List<Task> unprocessedTasks = taskRepository.findAllUnprocessed();
-        List<RouteStateDTO> states = jmxService.getRouteStates();
+        JSONObject states = jmxService.getRouteStates();
+        JSONObject contextStats = jmxService.getContextStats();
 
         model.addAttribute("routeStates", states);
+        model.addAttribute("context", contextStats);
         model.addAttribute("allUnprocessedTasks", unprocessedTasks);
         model.addAttribute("numberOfTasks", unprocessedTasks.size());
 
