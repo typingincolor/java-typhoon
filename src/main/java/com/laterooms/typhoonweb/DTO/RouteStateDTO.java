@@ -3,7 +3,7 @@ package com.laterooms.typhoonweb.DTO;
 /**
  * Created by andrew on 26/04/2014.
  */
-public class RouteStateDTO {
+public class RouteStateDTO implements Comparable<RouteStateDTO> {
     private String state;
     private String routeId;
     private String endpointUri;
@@ -28,5 +28,12 @@ public class RouteStateDTO {
 
     public String toString() {
         return String.format("%s:%s:%s", routeId, state, endpointUri);
+    }
+
+    @Override
+    public int compareTo(RouteStateDTO routeStateDTO) {
+        int routeA = Integer.parseInt(getRouteId().substring(5));
+        int routeB = Integer.parseInt(routeStateDTO.getRouteId().substring(5));
+        return routeA - routeB;
     }
 }
