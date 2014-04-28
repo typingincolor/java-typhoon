@@ -30,7 +30,7 @@ public class ApplyTemplateRoute extends SpringRouteBuilder {
 
                         String command = gson.toJson(script.getScript());
                         String template = JsonPath.read(command, "$." + current + ".data.template");
-                        Map templateData = JsonPath.read(command, "$." + current + ".data.template_data");
+                        Map<?, ?> templateData = JsonPath.read(command, "$." + current + ".data.template_data");
 
                         current++;
 

@@ -1,19 +1,14 @@
 package com.laterooms.typhoonweb.configuration;
 
-import com.github.jknack.handlebars.springmvc.HandlebarsViewResolver;
 import org.jolokia.client.J4pClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.jmx.access.MBeanProxyFactoryBean;
-import org.springframework.jmx.support.ConnectorServerFactoryBean;
-import org.springframework.jmx.support.MBeanServerConnectionFactoryBean;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-import java.lang.management.ManagementFactory;
-import java.net.MalformedURLException;
+import com.github.jknack.handlebars.springmvc.HandlebarsViewResolver;
 
 /**
  * Created by abraithwaite on 25/04/2014.
