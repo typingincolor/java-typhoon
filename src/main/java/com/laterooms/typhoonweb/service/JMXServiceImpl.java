@@ -21,6 +21,7 @@ public class JMXServiceImpl implements JMXService {
     @Autowired
     J4pClient j4pClient;
 
+    @SuppressWarnings("unchecked")
     public JSONObject getRouteStates() {
         try {
             J4pSearchRequest j4pSearch = new J4pSearchRequest("org.apache.camel:type=routes,*");

@@ -8,6 +8,9 @@ version = '1.0-SNAPSHOT'
 
 description = "java-typhoon"
 
+sourceCompatibility = "1.6"
+targetCompatibility = "1.6"
+
 project.ext {
     camelVersion = '2.13.0'
     openJpaVersion = '2.3.0'
