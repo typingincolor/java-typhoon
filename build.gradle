@@ -46,6 +46,7 @@ dependencies {
     compile group: 'org.apache.camel', name: 'camel-gson', version: project.camelVersion
     compile group: 'org.apache.camel', name: 'camel-jpa', version: project.camelVersion
     compile group: 'org.apache.camel', name: 'camel-restlet', version: project.camelVersion
+    compile group: 'org.apache.camel', name: 'camel-cxf', version: project.camelVersion
 
     compile group: 'org.apache.openjpa', name: 'openjpa-persistence-jdbc', version: project.openJpaVersion
     compile group: 'org.apache.openjpa', name: 'openjpa-kernel', version: project.openJpaVersion
@@ -71,6 +72,8 @@ dependencies {
 
     compile group: 'org.jolokia', name: 'jolokia-core', version: '1.2.0'
     compile group: 'org.jolokia', name: 'jolokia-client-java', version: '1.2.0'
+
+    compile group: 'org.apache.cxf', name: 'cxf-rt-transports-http-jetty', version: '2.7.6'
 }
 
 task generateQueryDSL(type: JavaCompile, group: 'build', description: 'Generates the QueryDSL query types') {
@@ -110,11 +113,11 @@ war {
 }
 
 jettyRunWar {
-    stopPort = 8082
+    stopPort = 9090
 }
 
 jettyStop {
-    stopPort = 8082
+    stopPort = 9090
 }
 
 clean {
