@@ -5,7 +5,8 @@ Typhoon - but in Java
 ## Unleashing the typhoon
 
 ```
-mvn jetty:run
+gradle war
+gradle jettyRunWar
 ```
 
 The following endpoints will be available:
